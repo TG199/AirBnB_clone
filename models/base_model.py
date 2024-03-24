@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+""" Base Module """
 from uuid import uuid4
 from datetime import datetime
 from models import storage
+
 
 class BaseModel:
     """ Represents a Base model class """
@@ -20,10 +22,10 @@ class BaseModel:
             for k, v in kwargs.items():
                 if k != '__class__':
                     if k == 'created_at' or k == 'updated_at':
-                        setattr(self, k, datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f'))
+                        setattr(self, k, datetime.strptime(v,
+                                '%Y-%m-%dT%H:%M:%S.%f'))
                     else:
                         setattr(self, k, v)
-
 
     def __str__(self):
         """ Class format """
@@ -34,7 +36,6 @@ class BaseModel:
         self.updated_at = datetime.now()
         storage.save()
 
-    
     def to_dict(self):
         """ Turn attributes to dictionary object
         Return: Dictionary object
